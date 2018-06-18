@@ -17,6 +17,8 @@ import {MatListModule} from '@angular/material/list';
 import { AppComponent } from './app.component';
 import { BoardComponent, AddNewModalComponent } from './board/board.component';
 import { TaskComponent, ModalTaskComponent } from './task/task.component';
+import { BoardService } from './service/board.service';
+import { TaskService } from './service/task.service';
 
 
 @NgModule({
@@ -41,7 +43,7 @@ import { TaskComponent, ModalTaskComponent } from './task/task.component';
     MatInputModule,
     MatListModule
   ],
-  providers: [],
+  providers: [BoardService, TaskService],
   bootstrap: [AppComponent],
   entryComponents: [
     AddNewModalComponent,

@@ -1,13 +1,13 @@
 <mat-grid-list cols="4">
-  <mat-grid-tile>
+  <mat-grid-tile *ngFor="let board of boards">
 
     <mat-card class="board full">
-      <mat-card-title>Simple
+      <mat-card-title>{{board.title}}
 
-        <button mat-icon-button (click)="renameBoard()">
+        <button mat-icon-button (click)="renameBoard(board)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="deleteBoard()">
+        <button mat-icon-button (click)="deleteBoard(board)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-title>

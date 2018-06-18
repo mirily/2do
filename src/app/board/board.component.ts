@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { BoardService } from '../service/board.service';
 
 @Component({
   selector: 'app-board',
@@ -7,12 +8,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
   styleUrls: ['./board.component.less']
 })
 export class BoardComponent {
-
-  constructor(public dialog: MatDialog) { }
+  boards;
+  constructor(public dialog: MatDialog, private boardServise: BoardService) {
+    this.boards = this.boardServise.returnBoards();
+  }
 
 
   showForm() {
-    let dialogRef = this.dialog.open(AddNewModalComponent, {
+    const dialogRef = this.dialog.open(AddNewModalComponent, {
       width: '250px',
       data: { name: 'Add new task', info: 'What\'s your task?' }
     });
@@ -22,36 +25,40 @@ export class BoardComponent {
     });
   }
 
-  renameBoard(name = 'Simple') {
-    let dialogRef = this.dialog.open(AddNewModalComponent, {
+  renameBoard(board) {
+    const dialogRef = this.dialog.open(AddNewModalComponent, {
       width: '250px',
-      data: { name: 'Rename you board', title: name }
+      data: { name: 'Rename you board', title: board.title }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed with result', result);
+      if (result) {
+        this.boardServise.renameBoard(board, result);
+      }
     });
   }
 
   addNewBoard() {
-    let dialogRef = this.dialog.open(AddNewModalComponent, {
+    const dialogRef = this.dialog.open(AddNewModalComponent, {
       width: '250px',
       data: { name: 'Add new board', info: 'Enter the name of your Board' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed with result', result);
+      if (result) {
+        this.boardServise.addNewBoard(result);
+      }
     });
   }
 
-  deleteBoard(name = 'Simple') {
-    let dialogRef = this.dialog.open(AddNewModalComponent, {
+  deleteBoard(board) {
+    const dialogRef = this.dialog.open(AddNewModalComponent, {
       width: '250px',
-      data: { name: 'Delete board', info: `Are you sure you want to remove the Board '${name}'?`, delete: true }
+      data: { name: 'Delete board', info: `Are you sure you want to remove the Board '${board.title}'?`, delete: true, board: board }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed with result', result);
+      this.boards = this.boardServise.deleteBoard(result);
     });
   }
 
@@ -81,7 +88,7 @@ export class AddNewModalComponent {
       }
       if (data.delete) {
         this.deleteMod = true;
-        data.task = 'delete';
+        data.task = data.board;
       }
     }
 
