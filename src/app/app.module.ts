@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
-//material imports
+// material imports
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
@@ -14,7 +14,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
 import { AppComponent } from './app.component';
-import { BoardComponent, AddNewModal } from './board/board.component';
+import { BoardComponent, AddNewModalComponent } from './board/board.component';
 import { TaskComponent } from './task/task.component';
 
 
@@ -23,7 +23,7 @@ import { TaskComponent } from './task/task.component';
     AppComponent,
     BoardComponent,
     TaskComponent,
-    AddNewModal
+    AddNewModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +41,7 @@ import { TaskComponent } from './task/task.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    AddNewModal,
+    AddNewModalComponent,
 ],
 })
 export class AppModule { }

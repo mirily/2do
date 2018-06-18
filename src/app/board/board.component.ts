@@ -12,9 +12,9 @@ export class BoardComponent {
 
 
   showForm() {
-    let dialogRef = this.dialog.open(AddNewModal, {
+    let dialogRef = this.dialog.open(AddNewModalComponent, {
       width: '250px',
-      data: { name: 'Add new task' }
+      data: { name: 'Add new task', info: 'What\'s your task?' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -22,11 +22,32 @@ export class BoardComponent {
     });
   }
 
-  renameBoard() {
-    
-    let dialogRef = this.dialog.open(AddNewModal, {
+  renameBoard(name = 'Simple') {
+    let dialogRef = this.dialog.open(AddNewModalComponent, {
       width: '250px',
-      data: { name: 'Rename you board', title: 'Simple' }
+      data: { name: 'Rename you board', title: name }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed with result', result);
+    });
+  }
+
+  addNewBoard() {
+    let dialogRef = this.dialog.open(AddNewModalComponent, {
+      width: '250px',
+      data: { name: 'Add new board', info: 'Enter the name of your Board' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed with result', result);
+    });
+  }
+
+  deleteBoard(name = 'Simple') {
+    let dialogRef = this.dialog.open(AddNewModalComponent, {
+      width: '250px',
+      data: { name: 'Delete board', info: `Are you sure you want to remove the Board '${name}'?`, delete: true }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -37,11 +58,11 @@ export class BoardComponent {
 }
 
 @Component({
-  selector: 'add-new',
+  selector: 'app-add-new',
   template: `<h1 mat-dialog-title>{{data.name}}</h1>
               <div mat-dialog-content>
-                <p *ngIf="!data.title">What's your task?</p>
-                <mat-form-field>
+                <p *ngIf="data.info">{{data.info}}</p>
+                <mat-form-field *ngIf="!deleteMod">
                   <input matInput [(ngModel)]="data.task">
                 </mat-form-field>
               </div>
@@ -50,13 +71,17 @@ export class BoardComponent {
                 <button mat-button [mat-dialog-close]="data.task" cdkFocusInitial>Ok</button>
               </div>`
 })
-export class AddNewModal {
-
+export class AddNewModalComponent {
+  deleteMod = false;
   constructor(
-    public dialogRef: MatDialogRef<AddNewModal>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { 
+    public dialogRef: MatDialogRef<AddNewModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
       if (data.title) {
         data.task = data.title
+      }
+      if (data.delete) {
+        this.deleteMod = true;
+        data.task = 'delete'
       }
     }
 
