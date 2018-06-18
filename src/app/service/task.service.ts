@@ -16,7 +16,6 @@ export class TaskService {
     tasks = this.boards[boardId - 1].tasks;
     const date = new Date;
     const id: number = tasks.length >= 1 ? tasks[tasks.length - 1].id + 1 : 1 + boardId * 10;
-    console.log(this.boards);
     return this.boards.forEach(el => {
       if (el.id === boardId) {
         el.tasks.push({id: id, created: date.toString(), title: title, complete: false });
@@ -25,17 +24,34 @@ export class TaskService {
   }
 
   renameTask(boardId: number, task: ITask, title: string) {
-    let tasks: ITask[];
-    tasks = this.boards[boardId].tasks;
-    return tasks.forEach(item => {
-      if (item === task) {
-        item.title = title;
+    return this.boards.forEach(item => {
+      if (item.id === boardId) {
+        item.tasks.forEach(e => {
+          if (e === task) {
+            e.title = title;
+          }
+        });
       }
     });
   }
 
   deleteTask(boardId: number, task: ITask) {
-    let tasks: ITask[] = this.boards[boardId].tasks;
-    return tasks = tasks.filter(item => item !== task);
+    return this.boards.forEach(item => {
+      if (item.id === boardId) {
+        item.tasks = item.tasks.filter(i => i !== task);
+      }
+    });
+  }
+
+  isComplete(boardId: number, task: ITask) {
+    return this.boards.forEach(item => {
+      if (item.id === boardId) {
+        item.tasks.forEach(e => {
+          if (e === task) {
+            e.complete = !e.complete;
+          }
+        });
+      }
+    });
   }
 }

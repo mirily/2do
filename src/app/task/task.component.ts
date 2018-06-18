@@ -15,6 +15,19 @@ export class TaskComponent {
   constructor(public dialog: MatDialog, private taskService: TaskService) {
   }
 
+  addTaskForm() {
+    const dialogRef = this.dialog.open(ModalTaskComponent, {
+      width: '250px',
+      data: { name: 'Add new task', info: 'What\'s your task?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.taskService.AddNewTask(this.boardId, result);
+      }
+    });
+  }
+
   renameTask(task) {
     const dialogRef = this.dialog.open(ModalTaskComponent, {
       width: '250px',
@@ -39,8 +52,8 @@ export class TaskComponent {
     });
   }
 
-  isComplete() {
-    console.log('complete');
+  isComplete(task) {
+    this.taskService.isComplete(this.boardId, task);
   }
 }
 

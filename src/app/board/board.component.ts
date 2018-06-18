@@ -1,8 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { BoardService } from '../service/board.service';
-import { TaskService } from '../service/task.service';
-import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-board',
@@ -12,28 +10,12 @@ import { Subject } from 'rxjs/Subject';
 export class BoardComponent {
   boards;
 
-  refresh: Subject<any> = new Subject();
 
   constructor(public dialog: MatDialog,
-              private boardServise: BoardService,
-              private taskService: TaskService) {
+              private boardServise: BoardService) {
     this.boards = this.boardServise.returnBoards();
   }
 
-
-  addTaskForm(boardId) {
-    const dialogRef = this.dialog.open(AddNewModalComponent, {
-      width: '250px',
-      data: { name: 'Add new task', info: 'What\'s your task?' }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.taskService.AddNewTask(boardId, result);
-        this.refresh.next();
-      }
-    });
-  }
 
   renameBoard(board) {
     const dialogRef = this.dialog.open(AddNewModalComponent, {

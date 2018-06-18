@@ -32,4 +32,5 @@ export class BoardService {
   public deleteBoard(board) {
     return this.boards = this.boards.filter(item => item !== board);
   }
+
 }

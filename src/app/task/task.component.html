@@ -1,6 +1,6 @@
 <mat-list role="list">
   <mat-list-item role="listitem" *ngFor="let task of tasks">
-    <button mat-icon-button (click)="isComplete()">
+    <button mat-icon-button (click)="isComplete(task)">
       <mat-icon>{{task.complete ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
     </button>
     {{task.title}}
@@ -12,3 +12,8 @@
     </button>
   </mat-list-item>
 </mat-list>
+<mat-card-footer>
+
+  <button mat-raised-button class="full" color="primary" (click)="addTaskForm()">Add new task</button>
+
+</mat-card-footer>

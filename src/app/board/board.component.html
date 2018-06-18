@@ -13,15 +13,9 @@
       </mat-card-title>
       <mat-card-content>
 
-        <app-task [tasks]="tasks" [boardId]="board.id"></app-task>
+        <app-task [tasks]="board.tasks" [boardId]="board.id"></app-task>
 
       </mat-card-content>
-      <mat-card-footer>
-      
-        <button mat-raised-button class="full" color="primary" (click)="addTaskForm(board.id)">Add new task</button>
-      
-      </mat-card-footer>
-  
     </mat-card>
   </mat-grid-tile>
 
