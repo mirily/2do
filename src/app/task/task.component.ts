@@ -32,6 +32,10 @@ export class TaskComponent {
       console.log('The dialog was closed with result', result);
     });
   }
+
+  isComplete() {
+    this.item.complete = !this.item.complete;
+  }
 }
 
 @Component({

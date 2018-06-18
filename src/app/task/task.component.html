@@ -1,6 +1,8 @@
 <mat-list role="list">
   <mat-list-item role="listitem">
-    <mat-icon>{{item.complete ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
+    <button mat-icon-button (click)="isComplete()">
+      <mat-icon>{{item.complete ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
+    </button>
     Item 1
     <button mat-icon-button (click)="renameTask()">
       <mat-icon>edit</mat-icon>
