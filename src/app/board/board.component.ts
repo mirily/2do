@@ -22,13 +22,25 @@ export class BoardComponent {
     });
   }
 
+  renameBoard() {
+    
+    let dialogRef = this.dialog.open(AddNewModal, {
+      width: '250px',
+      data: { name: 'Rename you board', title: 'Simple' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed with result', result);
+    });
+  }
+
 }
 
 @Component({
   selector: 'add-new',
   template: `<h1 mat-dialog-title>{{data.name}}</h1>
               <div mat-dialog-content>
-                <p>What's your task?</p>
+                <p *ngIf="!data.title">What's your task?</p>
                 <mat-form-field>
                   <input matInput [(ngModel)]="data.task">
                 </mat-form-field>
@@ -42,7 +54,11 @@ export class AddNewModal {
 
   constructor(
     public dialogRef: MatDialogRef<AddNewModal>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { 
+      if (data.title) {
+        data.task = data.title
+      }
+    }
 
   onNoClick(): void {
     this.dialogRef.close();
