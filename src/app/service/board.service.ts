@@ -10,11 +10,11 @@ export class BoardService {
     this.boards = TASKS;
   }
 
-  public returnBoards() {
+  returnBoards() {
     return this.boards;
   }
 
-  public addNewBoard(title) {
+  addNewBoard(title) {
     const data = new Date;
     let id;
     id = this.boards.length >= 1 ?  this.boards[this.boards.length - 1].id + 1 : 1;
@@ -33,7 +33,7 @@ export class BoardService {
     return this.boards;
   }
 
-  public deleteBoard(board) {
+  deleteBoard(board) {
     this.boards = this.boards.filter(item => item !== board);
     localStorage.setItem('tasks', JSON.stringify(this.boards));
     return this.boards;
