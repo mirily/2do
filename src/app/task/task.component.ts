@@ -1,40 +1,46 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { TaskService } from '../service/task.service';
+
+
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.less']
 })
 export class TaskComponent {
-  item = {
-    complete: false
-  };
-  constructor(public dialog: MatDialog) { }
+  @Input() tasks;
+  @Input() boardId;
 
-  renameTask(name = 'Item 1') {
-    let dialogRef = this.dialog.open(ModalTaskComponent, {
+  constructor(public dialog: MatDialog, private taskService: TaskService) {
+  }
+
+  renameTask(task) {
+    const dialogRef = this.dialog.open(ModalTaskComponent, {
       width: '250px',
-      data: { name: 'Rename you task', title: name }
+      data: { name: 'Rename you task', title: task.title }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed with result', result);
+      if (result) {
+        this.taskService.renameTask(this.boardId, task, result);
+      }
     });
   }
 
-  deleteTask(name = 'Item 1') {
-    let dialogRef = this.dialog.open(ModalTaskComponent, {
+  deleteTask(task) {
+    const dialogRef = this.dialog.open(ModalTaskComponent, {
       width: '250px',
-      data: { name: 'Delete task', info: `Are you sure you want to remove the task '${name}'?`, delete: true }
+      data: { name: 'Delete task', info: `Are you sure you want to remove the task '${task.title}'?`, delete: true, task: task }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed with result', result);
+      this.taskService.deleteTask(this.boardId, result);
     });
   }
 
   isComplete() {
-    this.item.complete = !this.item.complete;
+    console.log('complete');
   }
 }
 
@@ -62,7 +68,7 @@ export class ModalTaskComponent {
       }
       if (data.delete) {
         this.deleteMod = true;
-        data.task = 'delete';
+        data.task = data.task;
       }
     }
 

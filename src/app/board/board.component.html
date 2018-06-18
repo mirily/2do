@@ -13,16 +13,16 @@
       </mat-card-title>
       <mat-card-content>
 
-        <app-task></app-task>
+        <app-task [tasks]="tasks" [boardId]="board.id"></app-task>
 
       </mat-card-content>
       <mat-card-footer>
-
-        <button mat-raised-button class="full" color="primary" (click)="showForm()">Add new task</button>
-
+      
+        <button mat-raised-button class="full" color="primary" (click)="addTaskForm(board.id)">Add new task</button>
+      
       </mat-card-footer>
+  
     </mat-card>
-
   </mat-grid-tile>
 
 

@@ -1,13 +1,13 @@
 <mat-list role="list">
-  <mat-list-item role="listitem">
+  <mat-list-item role="listitem" *ngFor="let task of tasks">
     <button mat-icon-button (click)="isComplete()">
-      <mat-icon>{{item.complete ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
+      <mat-icon>{{task.complete ? 'check_box' : 'check_box_outline_blank'}}</mat-icon>
     </button>
-    Item 1
-    <button mat-icon-button (click)="renameTask()">
+    {{task.title}}
+    <button mat-icon-button (click)="renameTask(task)">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button (click)="deleteTask()">
+    <button mat-icon-button (click)="deleteTask(task)">
       <mat-icon>delete</mat-icon>
     </button>
   </mat-list-item>

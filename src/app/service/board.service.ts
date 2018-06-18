@@ -18,7 +18,7 @@ export class BoardService {
     const data = new Date;
     let id;
     id = this.boards.length >= 1 ?  this.boards[this.boards.length - 1].id + 1 : 1;
-    return this.boards.push({id: id, title: title, created: data.toString()});
+    return this.boards.push({id: id, title: title, created: data.toString(), tasks: []});
   }
 
   renameBoard(board, newTitle) {
