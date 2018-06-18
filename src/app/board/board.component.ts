@@ -77,16 +77,15 @@ export class AddNewModalComponent {
     public dialogRef: MatDialogRef<AddNewModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       if (data.title) {
-        data.task = data.title
+        data.task = data.title;
       }
       if (data.delete) {
         this.deleteMod = true;
-        data.task = 'delete'
+        data.task = 'delete';
       }
     }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

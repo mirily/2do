@@ -12,10 +12,11 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
 
 import { AppComponent } from './app.component';
 import { BoardComponent, AddNewModalComponent } from './board/board.component';
-import { TaskComponent } from './task/task.component';
+import { TaskComponent, ModalTaskComponent } from './task/task.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { TaskComponent } from './task/task.component';
     AppComponent,
     BoardComponent,
     TaskComponent,
-    AddNewModalComponent
+    AddNewModalComponent,
+    ModalTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -36,12 +38,14 @@ import { TaskComponent } from './task/task.component';
     MatIconModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     AddNewModalComponent,
+    ModalTaskComponent
 ],
 })
 export class AppModule { }
